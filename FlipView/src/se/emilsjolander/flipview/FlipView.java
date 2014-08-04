@@ -33,7 +33,7 @@ import android.widget.Scroller;
 public class FlipView extends FrameLayout {
 
 	public interface OnFlipListener {
-		public void onFlippedToPage(FlipView v, int position, long id);
+		public void onFlippedToPage(View v, int position, long id);
 	}
 
 	public interface OnOverFlipListener {
@@ -906,7 +906,7 @@ public class FlipView extends FrameLayout {
 			@Override
 			public void run() {
 				if (mOnFlipListener != null) {
-					mOnFlipListener.onFlippedToPage(FlipView.this, page,
+					mOnFlipListener.onFlippedToPage(mCurrentPage.v, page,
 							mAdapter.getItemId(page));
 				}
 			}
