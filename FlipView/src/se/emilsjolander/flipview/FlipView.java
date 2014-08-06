@@ -908,6 +908,7 @@ public class FlipView extends FrameLayout {
 				if (mOnFlipListener != null) {
 					mOnFlipListener.onFlippedToPage(mCurrentPage.v, page,
 							mAdapter.getItemId(page));
+					mRecycler.removeScraps(mCurrentPage.v,mPreviousPage.v,mNextPage.v);
 				}
 			}
 		});
@@ -1144,6 +1145,11 @@ public class FlipView extends FrameLayout {
 		smoothFlipTo(mCurrentPageIndex + delta);
 	}
 
+
+	public boolean isFlippingNow() {
+		return mIsFlipping;
+	}
+
 	/**
 	 * Hint that there is a next page will do nothing if there is no next page
 	 * 
@@ -1228,6 +1234,11 @@ public class FlipView extends FrameLayout {
 	public void setEmptyView(View emptyView) {
 		mEmptyView = emptyView;
 		updateEmptyStatus();
+	}
+
+	public void disposeViews() {
+		if (mRecycler!=null)
+			mRecycler.removeAllScraps();
 	}
 
 }
