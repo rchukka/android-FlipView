@@ -1,6 +1,5 @@
 package se.emilsjolander.flipview;
 
-import se.emilsjolander.flipview.Recycler.Scrap;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.TimeInterpolator;
@@ -9,13 +8,8 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.graphics.Camera;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.graphics.Paint.Style;
-import android.graphics.Rect;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.util.AttributeSet;
@@ -29,11 +23,15 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
+import se.emilsjolander.flipview.Recycler.Scrap;
+
+import java.util.List;
 
 public class FlipView extends FrameLayout {
 
 	public interface OnFlipListener {
 		public void onFlippedToPage(View v, int position, long id);
+		public void recycleViews(List<View> v);
 	}
 
 	public interface OnOverFlipListener {
@@ -908,7 +906,6 @@ public class FlipView extends FrameLayout {
 				if (mOnFlipListener != null) {
 					mOnFlipListener.onFlippedToPage(mCurrentPage.v, page,
 							mAdapter.getItemId(page));
-					mRecycler.removeScraps(mCurrentPage.v,mPreviousPage.v,mNextPage.v);
 				}
 			}
 		});
@@ -1236,9 +1233,8 @@ public class FlipView extends FrameLayout {
 		updateEmptyStatus();
 	}
 
-	public void disposeViews() {
-		if (mRecycler!=null)
-			mRecycler.removeAllScraps();
-	}
+
+
+
 
 }
