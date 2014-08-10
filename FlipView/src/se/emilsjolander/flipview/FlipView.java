@@ -25,13 +25,10 @@ import android.widget.ListAdapter;
 import android.widget.Scroller;
 import se.emilsjolander.flipview.Recycler.Scrap;
 
-import java.util.List;
-
 public class FlipView extends FrameLayout {
 
 	public interface OnFlipListener {
-		public void onFlippedToPage(View v, int position, long id);
-		public void recycleViews(List<View> v);
+		public void onFlippedToPage(View currentView, View previousView, int position, long id);
 	}
 
 	public interface OnOverFlipListener {
@@ -904,7 +901,7 @@ public class FlipView extends FrameLayout {
 			@Override
 			public void run() {
 				if (mOnFlipListener != null) {
-					mOnFlipListener.onFlippedToPage(mCurrentPage.v, page,
+					mOnFlipListener.onFlippedToPage(mCurrentPage.v, mPreviousPage.v, page,
 							mAdapter.getItemId(page));
 				}
 			}
