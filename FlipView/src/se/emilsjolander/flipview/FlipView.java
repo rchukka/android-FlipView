@@ -25,12 +25,11 @@ import android.widget.ListAdapter;
 import android.widget.Scroller;
 import se.emilsjolander.flipview.Recycler.Scrap;
 
-import java.util.List;
-
 public class FlipView extends FrameLayout {
 
 	public interface OnFlipListener {
 		public void onFlippedToPage(View v, int position, long id);
+		public void beforeFlipCallback(View prev,View next);
 	}
 
 	public interface OnOverFlipListener {
@@ -477,6 +476,7 @@ public class FlipView extends FrameLayout {
 			if ((mIsFlippingVertically && yDiff > mTouchSlop && yDiff > xDiff)
 					|| (!mIsFlippingVertically && xDiff > mTouchSlop && xDiff > yDiff)) {
 				mIsFlipping = true;
+				mOnFlipListener.beforeFlipCallback(mPreviousPage.v,mNextPage.v);
 				mLastX = x;
 				mLastY = y;
 			} else if ((mIsFlippingVertically && xDiff > mTouchSlop)
@@ -541,6 +541,7 @@ public class FlipView extends FrameLayout {
 			// start flipping immediately if interrupting some sort of animation
 			if (endScroll() || endPeak()) {
 				mIsFlipping = true;
+				mOnFlipListener.beforeFlipCallback(mPreviousPage.v,mNextPage.v);
 			}
 
 			// Remember where the motion event started
@@ -563,6 +564,7 @@ public class FlipView extends FrameLayout {
 				if ((mIsFlippingVertically && yDiff > mTouchSlop && yDiff > xDiff)
 						|| (!mIsFlippingVertically && xDiff > mTouchSlop && xDiff > yDiff)) {
 					mIsFlipping = true;
+					mOnFlipListener.beforeFlipCallback(mPreviousPage.v,mNextPage.v);
 					mLastX = x;
 					mLastY = y;
 				}
