@@ -1,9 +1,11 @@
-package se.emilsjolander.flipview;
+package se.emilsjolander.flipview.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class FlipAdapter extends BaseAdapter implements OnClickListener {
+
+  static int[] COLORS = new int[]{Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN};
 	
 	public interface Callback{
 		public void onPageRequested(int page);
@@ -74,6 +78,9 @@ public class FlipAdapter extends BaseAdapter implements OnClickListener {
 		if(convertView == null){
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.page, parent, false);
+
+      int random = (int )(Math.random() * 4);
+      convertView.setBackgroundColor(COLORS[random]);
 			
 			holder.text = (TextView) convertView.findViewById(R.id.text);
 			holder.firstPage = (Button) convertView.findViewById(R.id.first_page);

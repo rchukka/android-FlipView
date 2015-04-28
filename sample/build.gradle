@@ -1,22 +1,19 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
-repositories {
-    mavenCentral()
-}
 dependencies {
-    compile project(':library')
-    compile 'com.android.support:support-v4:18.0.0'
+    compile project(':FlipView')
+    compile 'com.android.support:support-v4:22.1.1'
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion '18.0.1'
+    compileSdkVersion 19
+    buildToolsVersion '22.0.1'
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            res.srcDirs = ['res']
-        }
-    }
+  defaultConfig {
+    applicationId "se.emilsjolander.flipview.demo"
+    minSdkVersion 14
+    targetSdkVersion 15
+    versionCode 1
+    versionName "1.0"
+  }
 }

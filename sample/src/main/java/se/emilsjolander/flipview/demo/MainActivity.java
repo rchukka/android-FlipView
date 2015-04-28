@@ -1,33 +1,37 @@
-package se.emilsjolander.flipview;
+package se.emilsjolander.flipview.demo;
 
-import se.emilsjolander.flipview.FlipAdapter.Callback;
+import se.emilsjolander.flipview.demo.FlipAdapter.Callback;
+import se.emilsjolander.flipview.FlipView;
 import se.emilsjolander.flipview.FlipView.OnFlipListener;
 import se.emilsjolander.flipview.FlipView.OnOverFlipListener;
+import se.emilsjolander.flipview.OverFlipMode;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends Activity implements Callback, OnFlipListener, OnOverFlipListener {
 	
-	private FlipView mFlipView;
-	private FlipAdapter mAdapter;
+	private FlipView    mFlipView;
+  private FlipAdapter mAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		mFlipView = (FlipView) findViewById(R.id.flip_view);
-		mAdapter = new FlipAdapter(this);
-		mAdapter.setCallback(this);
-		mFlipView.setAdapter(mAdapter);
-		mFlipView.setOnFlipListener(this);
-		mFlipView.peakNext(false);
-		mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
-		mFlipView.setEmptyView(findViewById(R.id.empty_view));
-		mFlipView.setOnOverFlipListener(this);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mFlipView = (FlipView) findViewById(R.id.flip_view);
+    mAdapter = new FlipAdapter(this);
+    mAdapter.setCallback(this);
+    mFlipView.setAdapter(mAdapter);
+    mFlipView.setOnFlipListener(this);
+    mFlipView.peakNext(false);
+    mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
+    mFlipView.setEmptyView(findViewById(R.id.empty_view));
+    mFlipView.setOnOverFlipListener(this);
 		
 	}
 	
@@ -52,8 +56,7 @@ public class MainActivity extends Activity implements Callback, OnFlipListener, 
 		mFlipView.smoothFlipTo(page);
 	}
 
-	@Override
-	public void onFlippedToPage(FlipView v, int position, long id) {
+	public void fonFlippedToPage(FlipView v, int position, long id) {
 		Log.i("pageflip", "Page: "+position);
 		if(position > mFlipView.getPageCount()-3 && mFlipView.getPageCount()<30){
 			mAdapter.addItems(5);
@@ -67,4 +70,13 @@ public class MainActivity extends Activity implements Callback, OnFlipListener, 
 		Log.i("overflip", "overFlipDistance = "+overFlipDistance);
 	}
 
+  @Override
+  public void onFlippedToPage(View v, int position, long id) {
+
+  }
+
+  @Override
+  public void beforeFlipCallback(View prev, View next) {
+
+  }
 }

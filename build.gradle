@@ -1,24 +1,14 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
-    }
-}
-
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:1.0.0'
+  }
 }
 
 allprojects {
-    version = VERSION_NAME
-    group = GROUP
-
-    repositories {
-        mavenCentral()
-    }
+  repositories {
+    jcenter()
+  }
 }
-
-apply plugin: 'android-reporting'
